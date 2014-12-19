@@ -6,7 +6,7 @@
  *
  *   @author: Darko Gjorgjijoski
  *   @link http://darkog.com/
- *   @version: Alpha
+ *   @version: 0.0.1_alpha
  *   @license: http://opensource.org/licenses/MIT
  *   @compiler: GCC/Mingw
 */
