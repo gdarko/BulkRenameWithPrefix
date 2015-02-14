@@ -12,9 +12,9 @@
 */
 
 #include <stdio.h>
-#include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 #ifdef __linux__
 #define OPERATING_SYSTEM 0
@@ -33,7 +33,8 @@ char *del_ext(char* main_str, char sep)
     char *result_str, *lastdot, *lastsep;
 
     if (main_str == NULL) return NULL;
-    if ((result_str = malloc(strlen(main_str) + 1)) == NULL) return NULL;
+    if ((result_str = malloc(strlen(main_str) + 1)) == NULL) 
+        return NULL;
 
     strcpy (result_str, main_str);
     lastdot = strrchr(result_str, '.');
@@ -77,7 +78,8 @@ char *removePath(const char *path)
 char *get_ext(char *fspec)
 {
     char *e = strrchr(fspec, '.');
-    if (e == NULL) e = "";
+    if (e == NULL) 
+        e = "";
     return e;
 }
 
@@ -88,10 +90,10 @@ char *get_ext(char *fspec)
  */
 int is_valid_separator(char *separator)
 {
-    //if(separator == '_' || separator == '-')
     if(!strcmp(separator, "_") || !strcmp(separator, "-"))
         return 1;
-    else return 0;
+    else 
+        return 0;
 }
 
 
@@ -115,7 +117,6 @@ char *generate_new_filename(char *main_str, char *new_str, char *separator)
     strcat(generated, is_valid_separator(separator) ? separator:"_");
     strcat(generated, new_str);
     strcat(generated, ext);
-
     return generated;
 }
 
@@ -128,7 +129,6 @@ char *generate_new_filename(char *main_str, char *new_str, char *separator)
  */
 void main_function(char location[], char new_prefix[], char separator[])
 {
-
     DIR *DIRECTORY = opendir(location);
 
     int location_length = strlen(location);
@@ -136,24 +136,20 @@ void main_function(char location[], char new_prefix[], char separator[])
     if(location[location_length-1] != '\\'){
         location[location_length++] = '\\';
     }
-    //printf("%s", location);
-
-
+    
     struct dirent *dir;
 
     if(DIRECTORY)
     {
         while((dir=readdir(DIRECTORY)) != NULL)
         {
-
             if(dir->d_name[0]=='.') continue;
 
             int len_old_file_path = strlen(location)+strlen(dir->d_name)+2;
             char * fullpath = (char*)calloc(len_old_file_path,sizeof(char));
             strcat(fullpath, location);
             strcat(fullpath, dir->d_name);
-
-
+            
             int len_new_file_path = strlen(location) + strlen(new_prefix) + 3;
             char * dynrename = (char*)calloc(len_new_file_path,sizeof(char));
             strcat(dynrename, location);
@@ -184,7 +180,6 @@ void main_function(char location[], char new_prefix[], char separator[])
  */
 int main(int argc, char **argv)
 {
-
     if(argc > 1)
     {
         int new_location_length = strlen(argv[1]);
